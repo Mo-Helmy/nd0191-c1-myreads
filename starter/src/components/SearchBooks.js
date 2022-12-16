@@ -47,7 +47,7 @@ const SearchBooks = ({
           <input
             type="text"
             placeholder="Search by title, author, or ISBN"
-            value={query.current}
+            value={query}
             onChange={changeHandler}
             autoFocus
           />

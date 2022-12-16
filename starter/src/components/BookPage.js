@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as booksApi from '../BooksAPI';
 
 import classes from './BookPage.module.css';
@@ -115,6 +115,9 @@ const BookPage = ({
               About this eBook <span></span>
             </h3>
             <div className={classes.description}>{book.description}</div>
+          </div>
+          <div className="open-search">
+            <Link to="/search">Add a book</Link>
           </div>
         </div>
       )}
