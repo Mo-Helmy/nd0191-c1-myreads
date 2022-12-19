@@ -9,6 +9,7 @@ const SearchBooks = ({
   currentlyReading,
   wantToRead,
   read,
+  isUpdating,
 }) => {
   const [query, setQuery] = useState('');
   const [books, setBooks] = useState([]);
@@ -54,23 +55,26 @@ const SearchBooks = ({
         </div>
       </div>
       <div className="search-books-results">
-        {isLoading && <Spinner />}
-        <ol className="books-grid">
-          {books.error === 'empty query' || books.length === 0 ? (
-            <h2>No Books Found...</h2>
-          ) : (
-            books.map((book, index) => (
-              <Book
-                book={book}
-                key={book.id}
-                onUpdateBookShelf={onUpdateBookShelf}
-                wantToRead={wantToRead}
-                currentlyReading={currentlyReading}
-                read={read}
-              />
-            ))
-          )}
-        </ol>
+        {isLoading || isUpdating ? (
+          <Spinner />
+        ) : (
+          <ol className="books-grid">
+            {books.error === 'empty query' || books.length === 0 ? (
+              <h2>No Books Found...</h2>
+            ) : (
+              books?.map((book, index) => (
+                <Book
+                  book={book}
+                  key={book.id}
+                  onUpdateBookShelf={onUpdateBookShelf}
+                  wantToRead={wantToRead}
+                  currentlyReading={currentlyReading}
+                  read={read}
+                />
+              ))
+            )}
+          </ol>
+        )}
       </div>
     </div>
   );

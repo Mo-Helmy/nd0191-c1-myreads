@@ -7,10 +7,10 @@ import * as booksApi from './BooksAPI';
 import BookPage from './components/BookPage';
 
 const App = () => {
+  const [allBooks, setAllBooks] = useState([]);
   const [currentlyReading, setCurrentlyReading] = useState([]);
   const [wantToRead, setWantToRead] = useState([]);
   const [read, setRead] = useState([]);
-  const [isUpdate, setIsUpdate] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,6 +18,7 @@ const App = () => {
     const getBooks = async () => {
       setIsLoading(true);
       const result = await booksApi.getAll();
+      setAllBooks(result);
       const currentlyReading = result.filter(
         (book) => book.shelf === 'currentlyReading'
       );
@@ -30,13 +31,36 @@ const App = () => {
     };
 
     getBooks();
-    setIsUpdate(false);
-  }, [isUpdate]);
+  }, []);
 
-  const updateBookShelf = (book, shelf) => {
-    booksApi.update(book, shelf);
-    setIsUpdate(true);
+  const updateBookShelf = async (book, shelf) => {
+    setIsLoading(true);
+
+    await booksApi.update({ ...book, shelf }, shelf);
+
+    const updatedAllBooks = allBooks.map((b) => {
+      if (b.id === book.id) {
+        return { ...b, shelf };
+      } else {
+        return b;
+      }
+    });
+    setAllBooks(updatedAllBooks);
+
+    const currentlyReading = updatedAllBooks.filter(
+      (book) => book.shelf === 'currentlyReading'
+    );
+    const wantToRead = updatedAllBooks.filter(
+      (book) => book.shelf === 'wantToRead'
+    );
+    const read = updatedAllBooks.filter((book) => book.shelf === 'read');
+    setCurrentlyReading(currentlyReading);
+    setWantToRead(wantToRead);
+    setRead(read);
+    setIsLoading(false);
   };
+
+  console.log(isLoading);
 
   return (
     <Routes>
@@ -61,6 +85,7 @@ const App = () => {
             wantToRead={wantToRead}
             read={read}
             onUpdateBookShelf={updateBookShelf}
+            isUpdating={isLoading}
           />
         }
       />
