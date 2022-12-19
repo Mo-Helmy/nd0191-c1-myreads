@@ -38,13 +38,22 @@ const App = () => {
 
     await booksApi.update({ ...book, shelf }, shelf);
 
-    const updatedAllBooks = allBooks.map((b) => {
-      if (b.id === book.id) {
-        return { ...b, shelf };
-      } else {
-        return b;
-      }
-    });
+    let updatedAllBooks = allBooks;
+
+    if (shelf === 'none') {
+      updatedAllBooks = updatedAllBooks.filter((b) => b.id !== book.id);
+    } else if (!updatedAllBooks.find((b) => b.id === book.id)) {
+      updatedAllBooks.push({ ...book, shelf });
+    } else {
+      updatedAllBooks = allBooks.map((b) => {
+        if (b.id === book.id) {
+          return { ...b, shelf };
+        } else {
+          return b;
+        }
+      });
+    }
+
     setAllBooks(updatedAllBooks);
 
     const currentlyReading = updatedAllBooks.filter(
