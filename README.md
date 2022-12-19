@@ -8,14 +8,14 @@ this project has been solved by three methods:
 2. folder `myReads-contextAPI` solved by using useContext hook
 3. folder `myReads-Redux-toolkit` solved by using @reduxjs/toolkit
 
-## Installion Instructions
+## Installation Instructions
 
 1. clone this repo
 2. `cd starter` or `cd myReads-contextAPI` or `cd myReads-Redux-toolkit`
 3. `npm install`
 4. `npm start`
 
-## project Routes
+## Project Routes
 
 - Home page `localhost:3000`
 - Search `localhost:3000/search`
