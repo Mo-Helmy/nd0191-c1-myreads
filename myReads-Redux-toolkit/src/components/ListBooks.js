@@ -11,8 +11,6 @@ const ListBooks = () => {
   const isFetching = useSelector((state) => state.ui.isFetchMyBooks);
   const isUpdating = useSelector((state) => state.ui.isUpdatingBookShelf);
 
-  console.log(myBooks);
-
   useEffect(() => {
     dispatch(getAllBooksAction());
   }, [dispatch]);

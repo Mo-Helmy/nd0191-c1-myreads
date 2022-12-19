@@ -23,17 +23,17 @@ const BookPage = () => {
 
   if (myBooks[0]?.books) {
     for (const b of myBooks[0].books) {
-      if (book.id === b.id) defaultValue = 'currentlyReading';
+      if (bookId === b.id) defaultValue = 'currentlyReading';
     }
   }
   if (myBooks[1]?.books) {
     for (const b of myBooks[1].books) {
-      if (book.id === b.id) defaultValue = 'wantToRead';
+      if (bookId === b.id) defaultValue = 'wantToRead';
     }
   }
   if (myBooks[2]?.books) {
     for (const b of myBooks[2].books) {
-      if (book.id === b.id) defaultValue = 'read';
+      if (bookId === b.id) defaultValue = 'read';
     }
   }
 
